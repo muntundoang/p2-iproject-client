@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-const urlBase = 'https://client-wew-riolukmant.web.app'
+const urlBase = 'https://karaoke-son-epex.herokuapp.com'
 
 Vue.use(Vuex)
 
