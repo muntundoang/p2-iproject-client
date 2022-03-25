@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-const urlBase = 'http://localhost:3000'
+const urlBase = 'https://client-wew-riolukmant.web.app'
 
 Vue.use(Vuex)
 
