@@ -12,8 +12,9 @@
         <input type="range" min="-10" max="10" value="0" id="treble">
       </div>
     </div>
-    <div class="flex p-5 justify-center">
+    <div class="flex p-5 justify-center align-bottom">
       <i-frame-youtube></i-frame-youtube>
+      <lyric-box></lyric-box>
     </div>
       <canvas id="visualizer"></canvas>
   </div>
@@ -23,6 +24,7 @@
 // @ is an alias to /src
 // import script from '@/script.js'
 import iFrameYoutube from '../components/iframe.vue'
+import lyricBox from '../components/lyricBox.vue'
 
 export default {
   name: 'HomeView',
@@ -32,7 +34,8 @@ export default {
     }
   },
   components: {
-    iFrameYoutube
+    iFrameYoutube,
+    lyricBox
   }
 }
 </script>

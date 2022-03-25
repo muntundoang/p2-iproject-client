@@ -20,13 +20,10 @@
       </li>
       <li class="">
       <form id="search-form" action="/results" method="get" name="searchForm">
-      <input v-model="lyricQuery" class="gap-4 m-1 px-2 py-1" id="search-term" name="search_query" type="text" value="" maxlength="128" placeholder="Search lyric here" />
-      <select v-model="keyLyricQuery" class="search-type gap-4 m-1 px-2 py-1" name="search_type">
-      <option value="q_artist">Artist</option>
-      <option value="q_track" >Title</option>
-      <option value="q_lyrics" >Lyric Part</option>
-      </select>
-      <button class="search-type gap-4 m-1 px-2 py-1 border-2 border-black" id="search-button" type="submit" value="Search">Search Lyric</button>
+      <input v-model="keyLyricQuery.q_artist" class="gap-4 m-1 px-2 py-1" id="search-term" name="search_query" type="text" value="" maxlength="128" placeholder="Input artist name here" required/>
+      <input v-model="keyLyricQuery.q_track" class="gap-4 m-1 px-2 py-1" id="search-term" name="search_query" type="text" value="" maxlength="128" placeholder="Input song title here" required/>
+      <input v-model="keyLyricQuery.q_lyrics" class="gap-4 m-1 px-2 py-1" id="search-term" name="search_query" type="text" value="" maxlength="128" placeholder="Input part of the lyric here" required/>
+      <button @click.prevent="searchLyric" class="search-type gap-4 m-1 px-2 py-1 border-2 border-black" id="search-button" type="submit" value="Search">Search Lyric</button>
       </form>
       </li>
     </ul>
@@ -42,7 +39,11 @@ export default {
     return {
       videoQuery: '',
       lyricQuery: '',
-      keyLyricQuery: ''
+      keyLyricQuery: {
+        q_artist: '',
+        q_track: '',
+        q_lyrics: ''
+      }
     }
   },
   methods: {
@@ -53,8 +54,7 @@ export default {
       this.$store.dispatch('getDataVideo', payload)
     },
     searchLyric () {
-      const payload = {}
-      payload[this.keyLyricQuery] = this.lyricQuery
+      const payload = this.keyLyricQuery
       this.$store.dispatch('getSearchDataLyric', payload)
     }
   }

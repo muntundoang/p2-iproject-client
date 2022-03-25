@@ -17,7 +17,12 @@ export default new Vuex.Store({
   mutations: {
     dataVideo (state, payloads) {
       state.dataVideo = payloads
-      console.log(this.state.dataVideo)
+    },
+    dataLyric (state, payloads) {
+      state.dataLyric = payloads
+    },
+    lyric (state, payload) {
+      state.lyricOnScreen = payload
     }
   },
   actions: {
@@ -33,7 +38,39 @@ export default new Vuex.Store({
         })
         context.commit('dataVideo', dataVideo.data)
       } catch (err) {
-
+        console.log(err)
+      }
+    },
+    async getSearchDataLyric (context, payload) {
+      console.log(payload)
+      const qArtist = payload.q_artist
+      const qTrack = payload.q_track
+      const qLyrics = payload.q_lyrics
+      try {
+        const dataLyric = await axios({
+          url: `${urlBase}/lyric`,
+          method: 'GET',
+          params: {
+            q_artist: qArtist,
+            q_track: qTrack,
+            q_lyrics: qLyrics
+          }
+        })
+        context.commit('dataLyric', dataLyric.data)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async getLyric (context, payload) {
+      const trackId = payload
+      try {
+        const lyric = await axios({
+          url: `${urlBase}/lyric/${trackId}`,
+          method: 'GET'
+        })
+        context.commit('lyric', lyric.data)
+      } catch (error) {
+        console.log(error)
       }
     }
   },
