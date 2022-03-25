@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home flex-col justify-center">
     <div class="flex justify-center">
       <div class="flex flex-col w-[20%] p-5">
         <label for="volume">Volume</label>
@@ -23,8 +23,14 @@
 // @ is an alias to /src
 // import script from '@/script.js'
 import iFrameYoutube from '../components/iframe.vue'
+
 export default {
   name: 'HomeView',
+  data () {
+    return {
+      listVideo: []
+    }
+  },
   components: {
     iFrameYoutube
   }

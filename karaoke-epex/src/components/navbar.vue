@@ -14,20 +14,17 @@
     <ul class="flex items-baseline flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
       <li class="">
       <form id="search-form" action="/results" method="get" name="searchForm">
-      <input class="gap-4 m-1 px-2 py-1" id="search-term" name="search_query" type="text" value="" maxlength="128" placeholder="Search Video here"/>
-      <select class="search-type gap-4 m-1 px-2 py-1" name="search_type">
-      <option value="">Videos</option>
-      <option value="search_users" >Channels</option>
-      </select>
-      <button class="search-type gap-4 m-1 px-2 py-1 border-2 border-black" id="search-button" type="submit" value="Search">Search Video</button>
+      <input v-model="videoQuery" class="gap-4 m-1 px-2 py-1" id="search-term" name="search_query" type="text" value="" maxlength="128" placeholder="Search Video here"/>
+      <button @click.prevent="searchVid" class="search-type gap-4 m-1 px-2 py-1 border-2 border-black" id="search-button" type="submit">Search Video</button>
       </form>
       </li>
       <li class="">
       <form id="search-form" action="/results" method="get" name="searchForm">
-      <input class="gap-4 m-1 px-2 py-1" id="search-term" name="search_query" type="text" value="" maxlength="128" placeholder="Search lyric here" />
-      <select class="search-type gap-4 m-1 px-2 py-1" name="search_type">
-      <option value="">Artist</option>
-      <option value="search_users" >Title</option>
+      <input v-model="lyricQuery" class="gap-4 m-1 px-2 py-1" id="search-term" name="search_query" type="text" value="" maxlength="128" placeholder="Search lyric here" />
+      <select v-model="keyLyricQuery" class="search-type gap-4 m-1 px-2 py-1" name="search_type">
+      <option value="q_artist">Artist</option>
+      <option value="q_track" >Title</option>
+      <option value="q_lyrics" >Lyric Part</option>
       </select>
       <button class="search-type gap-4 m-1 px-2 py-1 border-2 border-black" id="search-button" type="submit" value="Search">Search Lyric</button>
       </form>
@@ -40,7 +37,27 @@
 
 <script>
 export default {
-  name: 'nav-bar'
+  name: 'nav-bar',
+  data () {
+    return {
+      videoQuery: '',
+      lyricQuery: '',
+      keyLyricQuery: ''
+    }
+  },
+  methods: {
+    searchVid () {
+      const payload = {
+        q: this.videoQuery
+      }
+      this.$store.dispatch('getDataVideo', payload)
+    },
+    searchLyric () {
+      const payload = {}
+      payload[this.keyLyricQuery] = this.lyricQuery
+      this.$store.dispatch('getSearchDataLyric', payload)
+    }
+  }
 }
 </script>
 
